@@ -83,7 +83,8 @@
   "dependencies": {
     "@actions/core": "~1.2.0",
     "@actions/github": "~1.1.0",
-    "@octokit/rest": "^17.1.2",
-    "@octokit/types": "^2.5.0"
+    "@octokit/rest": "~17.1.2",
+    "@octokit/types": "~2.5.0",
+    "conventional-changelog": "~3.1.18"
   }
 }
