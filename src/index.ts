@@ -4,10 +4,10 @@
 
 import * as actionscore from '@actions/core';
 import * as github from '@actions/github';
-import { Octokit } from '@octokit/rest';
-import { OctokitResponse } from '@octokit/types';
 import { readFileSync } from 'fs';
 import { IConfig } from './config';
+import conventionalChangelog = require('conventional-changelog');
+import { streamToPromise } from './stream-to-promise';
 
 const config: IConfig = {
     FILTER: actionscore.getInput('filter', {
@@ -20,7 +20,7 @@ const config: IConfig = {
 const readPackage: () => any = (): any =>
     JSON.parse(readFileSync('./package.json', 'utf-8'));
 const runa = async (): Promise<void> => {
-    const githubClient: Octokit = new github.GitHub(config.GITHUB_SECRET) as Octokit;
+    //const githubClient: Octokit = new github.GitHub(config.GITHUB_SECRET) as Octokit;
     if (github.context.action.localeCompare('push')) {
         const packageInfo: {
             name: string,
@@ -28,6 +28,7 @@ const runa = async (): Promise<void> => {
         } = readPackage();
         const versionTagName: string = 'v' + packageInfo.version;
         actionscore.info('Checking Version: ' + versionTagName);
+        /*
         try {
             const resp: OctokitResponse<any> =
                 await githubClient.repos.getReleaseByTag({
@@ -53,7 +54,12 @@ const runa = async (): Promise<void> => {
             } else {
                 actionscore.setFailed('Error occured: ' + err.status);
             }
-        }
+        }*/
+        const resp: Buffer = await streamToPromise(conventionalChangelog({
+            outputUnreleased: false,
+            preset: 'angular',
+        }));
+        console.log(resp.toString("utf8"));
     }
 };
 
