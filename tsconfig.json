@@ -1,0 +1,23 @@
+{
+    "compilerOptions": {
+        "target": "es6",
+        "module": "commonjs",
+        "sourceMap": true,
+        "outDir": "./dist",
+        "rootDir": "./src",
+        "declaration": true,
+        "strictNullChecks": true,
+        "noUnusedLocals": true,
+        "skipLibCheck": true
+    },
+    "typeAcquisition": {
+        "enable": true
+    },
+    "include": [
+        "src/**/*.ts"
+    ],
+    "baseUrl": "./src",
+    "exclude": [
+        "node_modules"
+    ]
+}

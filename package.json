@@ -1,0 +1,89 @@
+{
+  "name": "@donmahallem/github-release-action",
+  "version": "0.0.1",
+  "description": "Require Labels for Github Actions",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "private": false,
+  "keywords": [
+    "api",
+    "types"
+  ],
+  "scripts": {
+    "test": "mocha",
+    "build": "tsc",
+    "test:coverage": "nyc npm run test",
+    "lint": "tslint -c tslint.json -p tsconfig.json src/**/*.ts",
+    "lint:fix": "tslint --fix -c tslint.json -p tsconfig.json src/**/*.ts",
+    "docs": "typedoc --options typedoc.json",
+    "build:ncc": "ncc build ./src/index.ts -o ./dist -s"
+  },
+  "homepage": "https://donmahallem.github.io/github-release-action/",
+  "author": {
+    "name": "donmahallem",
+    "email": "donmahallem@users.noreply.github.com",
+    "url": "https://github.com/donmahallem"
+  },
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/donmahallem/github-release-action/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/donmahallem/github-release-action.git"
+  },
+  "engines": {
+    "node": ">=10.0.0"
+  },
+  "devDependencies": {
+    "@types/chai": "~4.2.4",
+    "@types/mocha": "~5.2.7",
+    "@types/node": "~12.12.7",
+    "@types/sinon": "~7.5.0",
+    "@zeit/ncc": "~0.20.5",
+    "chai": "~4.2.0",
+    "mocha": "~6.2.2",
+    "nyc": "~14.1.1",
+    "sinon": "~7.5.0",
+    "ts-node": "~8.5.0",
+    "tslint": "~5.20.1",
+    "typedoc": "~0.15.1",
+    "typescript": "~3.7.2"
+  },
+  "nyc": {
+    "include": [
+      "src/*.ts",
+      "src/**/*.ts"
+    ],
+    "exclude": [
+      "typings",
+      "src/**/*.spec.ts",
+      "**/*.d.ts"
+    ],
+    "extension": [
+      ".ts"
+    ],
+    "require": [
+      "ts-node/register"
+    ],
+    "reporter": [
+      "json",
+      "html",
+      "text-summary",
+      "lcov"
+    ],
+    "sourceMap": true,
+    "instrument": true,
+    "all": true
+  },
+  "files": [
+    "dist/*",
+    "src/*"
+  ],
+  "dependencies": {
+    "@actions/core": "~1.2.0",
+    "@actions/github": "~1.1.0",
+    "@octokit/rest": "^17.1.2",
+    "@octokit/types": "^2.5.0"
+  }
+}
