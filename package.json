@@ -1,7 +1,7 @@
 {
   "name": "@donmahallem/github-release-action",
   "version": "0.0.1",
-  "description": "Require Labels for Github Actions",
+  "description": "Github Release Note Creator",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "private": false,
