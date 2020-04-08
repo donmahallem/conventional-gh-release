@@ -84,7 +84,7 @@
     "@actions/core": "~1.2.3",
     "@actions/github": "~1.1.0",
     "@octokit/rest": "~17.2.0",
-    "@octokit/types": "~2.6.0",
+    "@octokit/types": "~2.7.1",
     "conventional-changelog": "~3.1.18"
   }
 }
