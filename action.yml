@@ -1,10 +1,13 @@
-name: 'Github Automatic Npm Release Action'
-description: "Creates automatic npm releases"
+name: 'Conventional Github Release Notes'
+description: "Creates automatic release notes for tags"
 inputs:
   github_secret:  # id of input
-    description: 'List of valid labels'
+    description: 'Github Secret token'
     required: true
-    default: ''
+  preset:  # id of input
+    description: 'Preset to use'
+    required: false
+    default: 'angular'
 runs:
   using: 'node12'
   main: 'dist/index.js'
