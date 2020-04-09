@@ -17,6 +17,7 @@ const config: IConfig = {
         required: true,
     }),
 };
+actionscore.debug(JSON.stringify(config));
 const readPackage: () => any = (): any =>
     JSON.parse(readFileSync('./package.json', 'utf-8'));
 const runa = async (): Promise<void> => {
@@ -55,11 +56,6 @@ const runa = async (): Promise<void> => {
                 actionscore.setFailed('Error occured: ' + err.status);
             }
         }*/
-        const resp: Buffer = await streamToPromise(conventionalChangelog({
-            outputUnreleased: false,
-            preset: 'angular',
-        }));
-        console.log(resp.toString('utf8'));
     }
 };
 
