@@ -4,9 +4,9 @@
 
 import * as actionscore from '@actions/core';
 import * as github from '@actions/github';
+import conventionalChangelog = require('conventional-changelog');
 import { readFileSync } from 'fs';
 import { IConfig } from './config';
-import conventionalChangelog = require('conventional-changelog');
 import { streamToPromise } from './stream-to-promise';
 
 const config: IConfig = {
@@ -20,7 +20,7 @@ const config: IConfig = {
 const readPackage: () => any = (): any =>
     JSON.parse(readFileSync('./package.json', 'utf-8'));
 const runa = async (): Promise<void> => {
-    //const githubClient: Octokit = new github.GitHub(config.GITHUB_SECRET) as Octokit;
+    // const githubClient: Octokit = new github.GitHub(config.GITHUB_SECRET) as Octokit;
     if (github.context.action.localeCompare('push')) {
         const packageInfo: {
             name: string,
@@ -59,7 +59,7 @@ const runa = async (): Promise<void> => {
             outputUnreleased: false,
             preset: 'angular',
         }));
-        console.log(resp.toString("utf8"));
+        console.log(resp.toString('utf8'));
     }
 };
 

@@ -1,4 +1,8 @@
-import { Readable } from "stream";
+/*!
+ * Source https://github.com/donmahallem/conventional-gh-release
+ */
+
+import { Readable } from 'stream';
 type ResolveBuffer = (res: Buffer) => void;
 type PromiseReject = (rej: any) => void;
 export const streamToPromise = (inputStream: Readable): Promise<Buffer> => {
@@ -10,5 +14,4 @@ export const streamToPromise = (inputStream: Readable): Promise<Buffer> => {
         inputStream.on('error', reject);
         inputStream.on('end', () => resolve(Buffer.concat(outputChunks)));
     });
-}
-}
+};
