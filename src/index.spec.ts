@@ -5,8 +5,8 @@
 import { expect } from 'chai';
 import 'mocha';
 
-describe('index', () => {
-    it('should contain FlowApiValidator', () => {
+describe('index', (): void => {
+    it('should contain FlowApiValidator', (): void => {
         expect(true).to.not.be.eq(false);
     });
 });

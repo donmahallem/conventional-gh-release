@@ -57,9 +57,9 @@ const runa = async (): Promise<void> => {
     }
 };
 
-runa().catch((err: any) => {
+runa().catch((err: any): void => {
     actionscore.error(err);
     actionscore.setFailed('Error');
-}).then(() => {
+}).then((): void => {
     actionscore.info('Success');
 });
