@@ -1,0 +1,16 @@
+name: 'Conventional Github Release Notes'
+description: "Creates automatic release notes for tags"
+inputs:
+  github_secret:  # id of input
+    description: 'Github Secret token'
+    required: true
+  preset:  # id of input
+    description: 'Preset to use'
+    required: false
+    default: 'angular'
+runs:
+  using: 'node12'
+  main: 'dist/index.js'
+branding:
+  icon: 'bookmark'
+  color: 'orange'
