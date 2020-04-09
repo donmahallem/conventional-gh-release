@@ -4,14 +4,12 @@
 
 import * as actionscore from '@actions/core';
 import * as github from '@actions/github';
-import * as conventionalChangelog from 'conventional-changelog';
 import { Octokit } from '@octokit/rest';
-import { readFileSync } from 'fs';
-import { IConfig } from './config';
-import { streamToPromise } from './stream-to-promise';
-import { createChangelog } from './create-changelog';
 import { OctokitResponse } from '@octokit/types';
+import { IConfig } from './config';
+import { createChangelog } from './create-changelog';
 
+// tslint:disable-next-line:triple-equals
 const insideActions: boolean = (process.env.GITHUB_ACTION || false) == 'true';
 const config: IConfig = {
     FILTER: actionscore.getInput('filter', {

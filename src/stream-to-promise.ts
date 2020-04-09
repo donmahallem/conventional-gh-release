@@ -10,8 +10,8 @@ export const streamToPromise = (inputStream: Readable): Promise<Buffer> => {
 
     return new Promise((resolve: ResolveBuffer, reject: PromiseReject): void => {
 
-        inputStream.on('data', (chunk: Buffer) => outputChunks.push(chunk));
+        inputStream.on('data', (chunk: Buffer): number => outputChunks.push(chunk));
         inputStream.on('error', reject);
-        inputStream.on('end', () => resolve(Buffer.concat(outputChunks)));
+        inputStream.on('end', (): void => resolve(Buffer.concat(outputChunks)));
     });
 };
