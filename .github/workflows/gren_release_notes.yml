@@ -1,7 +1,6 @@
-on:
-  push:
-    tags:
-      - '*'
+on: [push]
+    #tags:
+    #  - '*'
 name: Test Create Github Release
 jobs:
   create_release_notes:

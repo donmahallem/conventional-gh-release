@@ -8,7 +8,7 @@ export const checkIfReleaseExists = (githubClient: Octokit, context: Context): P
         repo: context.repo.repo,
         tag: context.ref,
     })
-        .catch((err: any): Promise<OctokitResponse<typeof githubClient.>> => {
+        .catch((err: any): Promise<any> => {
             if (err && err.status === 404) {
                 return Promise.resolve(undefined) as any;
             }
