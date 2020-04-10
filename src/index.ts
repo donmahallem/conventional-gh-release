@@ -5,62 +5,50 @@
 import * as actionscore from '@actions/core';
 import * as github from '@actions/github';
 import { Octokit } from '@octokit/rest';
-import { OctokitResponse } from '@octokit/types';
+import { OctokitResponse, } from '@octokit/types';
 import { IConfig } from './config';
 import { createChangelog } from './create-changelog';
+import { checkIfReleaseExists } from './check-release';
 
 // tslint:disable-next-line:triple-equals
-const insideActions: boolean = (process.env.GITHUB_ACTION || false) == 'true';
 const config: IConfig = {
     FILTER: actionscore.getInput('filter', {
         required: false,
     }),
     GITHUB_SECRET: actionscore.getInput('github_secret', {
-        required: insideActions,
+        required: true,
     }),
 };
-actionscore.debug(JSON.stringify(config));
 const runa = async (): Promise<void> => {
     const githubClient: Octokit = new github.GitHub(config.GITHUB_SECRET) as Octokit;
-    if (github.context.action.localeCompare('push')) {
-        try {
-            const resp: OctokitResponse<any> =
-                await githubClient.repos.getReleaseByTag({
-                    owner: github.context.repo.owner,
-                    repo: github.context.repo.repo,
-                    tag: github.context.ref,
-                });
-            actionscore.setOutput('releaseId', '' + resp.data.id);
-            actionscore.setOutput('releaseUrl', resp.data.html_url);
-            actionscore.info('Version already released');
-        } catch (err) {
-            if (err.status === 404) {
-                const changelogMessage: string = await createChangelog({
-                    outputUnreleased: false,
-                    preset: 'angular',
-                    releaseCount: 2,
-                });
-                actionscore.setOutput('changelog', changelogMessage);
-                const resp: any = await githubClient.repos.createRelease({
-                    body: changelogMessage,
-                    draft: false,
-                    name: 'Release ' + github.context.ref,
-                    owner: github.context.repo.owner,
-                    repo: github.context.repo.repo,
-                    tag_name: github.context.ref,
-                    target_commitish: github.context.sha,
-                });
-                actionscore.setOutput('releaseId', '' + resp.data.id);
-                actionscore.setOutput('releaseUrl', resp.data.html_url);
-            } else {
-                actionscore.setFailed('Error occured: ' + err.status);
-            }
-        }
+    const resp: OctokitResponse<any> = await checkIfReleaseExists(githubClient, github.context);
+    if (resp) {
+        actionscore.setOutput('releaseId', '' + resp.data.id);
+        actionscore.setOutput('releaseUrl', resp.data.html_url);
+        actionscore.info('Version already released');
+    } else {
+        const changelogMessage: string = await createChangelog({
+            outputUnreleased: false,
+            preset: 'angular',
+            releaseCount: 2,
+        });
+        actionscore.setOutput('changelog', changelogMessage);
+        const resp2: any = await githubClient.repos.createRelease({
+            body: changelogMessage,
+            draft: false,
+            name: 'Release ' + github.context.ref,
+            owner: github.context.repo.owner,
+            repo: github.context.repo.repo,
+            tag_name: github.context.ref,
+            target_commitish: github.context.sha,
+        });
+        actionscore.setOutput('releaseId', '' + resp2.data.id);
+        actionscore.setOutput('releaseUrl', resp2.data.html_url);
     }
 };
 
 runa().catch((err: any): void => {
-    actionscore.error(err);
+    actionscore.error(err.toString());
     actionscore.setFailed('Error');
 }).then((): void => {
     actionscore.info('Success');
