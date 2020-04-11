@@ -1,6 +1,10 @@
-import { Octokit } from "@octokit/rest";
-import { Context } from "@actions/github/lib/context";
-import { OctokitResponse } from "@octokit/types";
+/*!
+ * Source https://github.com/donmahallem/conventional-gh-release
+ */
+
+import { Context } from '@actions/github/lib/context';
+import { Octokit } from '@octokit/rest';
+import { OctokitResponse } from '@octokit/types';
 
 export const checkIfReleaseExists = (githubClient: Octokit, context: Context): Promise<OctokitResponse<any>> => {
     return githubClient.repos.getReleaseByTag({

@@ -5,10 +5,10 @@
 import * as actionscore from '@actions/core';
 import * as github from '@actions/github';
 import { Octokit } from '@octokit/rest';
-import { OctokitResponse, } from '@octokit/types';
+import { OctokitResponse } from '@octokit/types';
+import { checkIfReleaseExists } from './check-release';
 import { IConfig } from './config';
 import { createChangelog } from './create-changelog';
-import { checkIfReleaseExists } from './check-release';
 
 // tslint:disable-next-line:triple-equals
 const config: IConfig = {
@@ -33,13 +33,14 @@ const runa = async (): Promise<void> => {
             releaseCount: 2,
         });
         actionscore.setOutput('changelog', changelogMessage);
+        console.log('kk', changelogMessage);
         const resp2: any = await githubClient.repos.createRelease({
             body: changelogMessage,
             draft: false,
             name: 'Release ' + github.context.ref,
             owner: github.context.repo.owner,
             repo: github.context.repo.repo,
-            tag_name: github.context.ref,
+            tag_name: (github.context.ref.split('\/').slice(2).join('')),
             target_commitish: github.context.sha,
         });
         actionscore.setOutput('releaseId', '' + resp2.data.id);

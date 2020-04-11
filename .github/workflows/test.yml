@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: [ '12', '10' ]
+        node: [ '13', '12' ]
     name: Node ${{ matrix.node }} Tests
     steps:
       - uses: actions/checkout@v1
@@ -23,9 +23,10 @@ jobs:
       - name: Npm test
         run: npm run test
       - name: Build and Deploy
+        if: github.event_name == 'push'
         uses: ./
         with:
-          github_token: ${{ secrets.github_token }}
+          github_secret: ${{ secrets.github_token }}
   publish_action:
     runs-on: ubuntu-latest
     name: Publishing the Action
@@ -37,7 +38,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v1
         with:
-          node-version: ${{ matrix.node }}
+          node-version: 12
       - name: Npm install
         run: npm ci
       - name: Dump GitHub context
