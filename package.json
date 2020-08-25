@@ -44,7 +44,7 @@
     "chai": "~4.2.0",
     "commitizen": "~4.2.0",
     "cz-conventional-changelog": "~3.2.1",
-    "mocha": "~7.1.1",
+    "mocha": "~8.1.1",
     "nyc": "~15.1.0",
     "sinon": "~9.0.3",
     "ts-node": "~9.0.0",
