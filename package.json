@@ -83,7 +83,7 @@
     "src/*"
   ],
   "dependencies": {
-    "@actions/core": "~1.2.4",
+    "@actions/core": "~1.2.5",
     "@actions/github": "~1.1.0",
     "@octokit/rest": "~18.0.4",
     "@octokit/types": "~5.4.1",
