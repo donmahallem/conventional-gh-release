@@ -86,7 +86,7 @@
     "@actions/core": "~1.2.6",
     "@actions/github": "~1.1.0",
     "@octokit/rest": "~18.0.14",
-    "@octokit/types": "~6.5.0",
+    "@octokit/types": "~6.5.1",
     "conventional-changelog": "~3.1.24"
   },
   "config": {
