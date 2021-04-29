@@ -1,0 +1,21 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+  target-branch: dev
+  labels:
+  - dependencies
+  versioning-strategy: increase
+  ignore:
+  - dependency-name: mocha
+    versions:
+    - 8.2.1
+    - 8.3.0
+    - 8.3.1
+  commit-message:
+    prefix: fix
+    prefix-development: chore
+    include: scope
